@@ -3,12 +3,14 @@
 import * as angular from 'angular';
 import 'angular-mocks';
 import {tech} from './tech';
+import {EncryptionService} from './encryption';
 
 describe('tech component', () => {
   beforeEach(() => {
     angular
       .module('fountainTech', ['app/techs/tech.html'])
-      .component('fountainTech', tech);
+      .component('fountainTech', tech)
+      .service('EncryptionService', EncryptionService);
     angular.mock.module('fountainTech');
   });
 
@@ -16,7 +18,7 @@ describe('tech component', () => {
     fixture: any;
   }
 
-  it('should render Gulp', angular.mock.inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService) => {
+  it('should render Gulp', angular.mock.inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService, EncryptionService: EncryptionService) => {
     const $scope: IMyScope = <IMyScope> $rootScope.$new();
     $scope.fixture = {
       key: 'gulp',
@@ -25,6 +27,7 @@ describe('tech component', () => {
       text1: 'The streaming build system',
       text2: 'Automate and enhance your workflow'
     };
+    EncryptionService.LoadEncryptionKey('dsflj');
     const element = $compile('<fountain-tech tech="fixture"></fountain-tech>')($scope);
     $scope.$digest();
     const tech = element.find('h3');
