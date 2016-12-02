@@ -20,7 +20,8 @@ export class EncryptionService {
 
   public DecryptStory(EncryptedStory: EncryptedStory): PlainStory {
     if (!this.IsReady()) { throw 'Encryption key not loaded'; }
-    throw 'Not implemented';
+    let decrypted = sjcl.decrypt(this.EncryptionKey, EncryptedStory.Contents as any as sjcl.SjclCipherEncrypted);
+    return new PlainStory(EncryptedStory.Date, decrypted);
   }
 
   public LoadEncryptionKey(passphrase: string): void {
