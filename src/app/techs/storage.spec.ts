@@ -4,6 +4,8 @@ import * as angular from 'angular';
 import 'angular-mocks';
 import { StorageService } from './storage';
 import { EncryptionService } from './encryption';
+import { FirebaseService } from './firebase';
+import { AuthService } from './auth';
 import { PlainStory, EncryptedStory } from '../model/radon';
 
 describe('storage service', () => {
@@ -13,22 +15,25 @@ describe('storage service', () => {
     angular
       .module('fountainTech', ['app/techs/tech.html'])
       .service('StorageService', StorageService)
+      .service('AuthService', AuthService)
+      .service('FirebaseService', FirebaseService)
       .service('EncryptionService', EncryptionService);
     angular.mock.module('fountainTech');
 
     angular.mock.inject((EncryptionService: EncryptionService) => {
       let plainStory = new PlainStory(new Date(), 'This is a test');
-      EncryptionService.LoadEncryptionKey('testPassword');
-      this.exampleStory = EncryptionService.EncryptStory(plainStory);
+      EncryptionService.loadEncryptionKey('testPassword');
+      this.exampleStory = EncryptionService.encryptStory(plainStory);
     });
   });
 
-  it('should fetch a story from firebase', angular.mock.inject((StorageService: StorageService) => {
-    StorageService.SaveStory(this.exampleStory);
+  xit('should fetch a story from firebase', angular.mock.inject((StorageService: StorageService) => {
+    //
   }));
 
-  xit('should save a story to firebase', angular.mock.inject((StorageService: StorageService) => {
-    //
+  it('should save a story to firebase', angular.mock.inject((StorageService: StorageService) => {
+    debugger;
+    StorageService.saveStory(this.exampleStory);
   }));
 
   xit('should delete a saved story from database', angular.mock.inject((StorageService: StorageService) => {
