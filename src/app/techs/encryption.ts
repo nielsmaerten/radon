@@ -12,28 +12,28 @@ export class EncryptionService {
     this.Salt = 'TODO'; // todo
   }
 
-  public EncryptStory(PlainStory: PlainStory): EncryptedStory {
-    if (!this.IsReady()) { throw 'Encryption key not loaded'; }
+  public encryptStory(PlainStory: PlainStory): EncryptedStory {
+    if (!this.isReady()) { throw 'Encryption key not loaded'; }
     let x = sjcl.encrypt(this.EncryptionKey, PlainStory.Contents);
     return new EncryptedStory(PlainStory.Date, x as any as string);
   }
 
-  public DecryptStory(EncryptedStory: EncryptedStory): PlainStory {
-    if (!this.IsReady()) { throw 'Encryption key not loaded'; }
+  public decryptStory(EncryptedStory: EncryptedStory): PlainStory {
+    if (!this.isReady()) { throw 'Encryption key not loaded'; }
     let decrypted = sjcl.decrypt(this.EncryptionKey, EncryptedStory.Contents as any as sjcl.SjclCipherEncrypted);
     return new PlainStory(EncryptedStory.Date, decrypted);
   }
 
-  public LoadEncryptionKey(passphrase: string): void {
-    let salt = this.LoadSalt();
+  public loadEncryptionKey(passphrase: string): void {
+    let salt = this.loadSalt();
     this.EncryptionKey = sjcl.misc.pbkdf2(passphrase, salt, 1000, 256, sjcl.misc.hmac);
   }
 
-  public IsReady(): boolean {
+  public isReady(): boolean {
     return this.EncryptionKey !== undefined && this.EncryptionKey.length > 0;
   }
 
-  private LoadSalt(): sjcl.BitArray {
+  private loadSalt(): sjcl.BitArray {
     return sjcl.codec.utf8String.toBits(this.Salt);
   }
 };
