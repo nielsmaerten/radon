@@ -1,16 +1,15 @@
 /// <reference path="../../../typings/index.d.ts" />
 import * as firebase from 'firebase';
+import * as Q from 'q';
 import { FirebaseService } from './firebase';
 
 export class AuthService {
   private auth: firebase.auth.Auth;
-  private $q: angular.IQService;
 
 
   /** @ngInject */
-  constructor(FirebaseService: FirebaseService, $q: angular.IQService) {
+  constructor(FirebaseService: FirebaseService) {
     this.auth = FirebaseService.getAuth();
-    this.$q = $q;
 
     /*this.auth.onAuthStateChanged(user => {
       if (!user) {
@@ -27,14 +26,14 @@ export class AuthService {
     return this.auth.currentUser != null;
   }
 
-  public signIn(): angular.IPromise<any> {
-    let deferred = this.$q.defer();
+  public signIn(): Q.Promise<{}> {
+    let deferred = Q.defer();
     this.auth.onAuthStateChanged(user => {
       if (!user) {
         let provider = new firebase.auth.GoogleAuthProvider();
         this.auth.signInWithRedirect(provider);
       } else {
-        deferred.resolve(user);
+        deferred.resolve();
       }
     });
     return deferred.promise;

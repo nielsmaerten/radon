@@ -4,19 +4,18 @@ import { FirebaseService } from './firebase';
 import { AuthService } from './auth';
 import * as firebase from 'firebase';
 import * as moment from 'moment';
+import * as Q from 'q';
 
 export class StorageService {
   private database: firebase.database.Database;
   private authService: AuthService;
-  private $q: angular.IQService;
   private stories: any;
 
 
   /** @ngInject */
-  constructor(FirebaseService: FirebaseService, AuthService: AuthService, $q: angular.IQService) {
+  constructor(FirebaseService: FirebaseService, AuthService: AuthService) {
     this.database = FirebaseService.getDatabase();
     this.authService = AuthService;
-    this.$q = $q;
     this.stories = {};
   }
 
@@ -24,16 +23,20 @@ export class StorageService {
     this.database.ref(this.getStoryRef(story.Date)).set(story);
   }
 
-  public fetchStory(date: Date): angular.IPromise<EncryptedStory> {
-    let deferred = this.$q.defer<EncryptedStory>();
+  public fetchStory(date: Date): Q.Promise<EncryptedStory> {
+    let deferred = Q.defer<EncryptedStory>();
     let story = this.tryGetStoryFromCache(date);
     if (story) {
       deferred.resolve(story);
     } else {
       this.database.ref(this.getStoryRef(date)).on('value', snapshot => {
-        let story: EncryptedStory = new EncryptedStory(date, snapshot.val().Contents);
-        this.stories[this.getDateRef(story.Date)] = story;
-        deferred.resolve(story);
+        if (snapshot.val() == null) {
+          deferred.reject('No story available for this date');
+        } else {
+          let story: EncryptedStory = new EncryptedStory(date, snapshot.val().Contents);
+          this.stories[this.getDateRef(story.Date)] = story;
+          deferred.resolve(story);
+        }
       });
     }
     return deferred.promise;

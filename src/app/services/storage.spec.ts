@@ -26,14 +26,16 @@ describe('storage service', () => {
     });
   });
 
-  xit('should fetch a story from firebase', done => angular.mock.inject((StorageService: StorageService) => {
+  it('should fetch a story from firebase', done => angular.mock.inject((StorageService: StorageService) => {
     StorageService.fetchStory(new Date()).then((story) => {
       expect(story).toBeDefined();
       done();
-    });
+    }).catch(error => {
+      throw error;
+     });
   }));
 
-  xit('should save a story to firebase', angular.mock.inject((StorageService: StorageService, AuthService: AuthService) => {
+  it('should save a story to firebase', angular.mock.inject((StorageService: StorageService) => {
     StorageService.saveStory(this.exampleStory);
   }));
 
