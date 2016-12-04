@@ -8,8 +8,8 @@ import routesConfig from './routes';
 
 import {main} from './app/main';
 import {header} from './app/components/header';
-import {title} from './app/title';
-import {footer} from './app/footer';
+import {banner} from './app/components/banner';
+import {footer} from './app/components/footer';
 
 import './index.scss';
 
@@ -18,5 +18,5 @@ angular
   .config(routesConfig)
   .component('app', main)
   .component('appHeader', header)
-  .component('fountainTitle', title)
-  .component('fountainFooter', footer);
+  .component('appBanner', banner)
+  .component('appFooter', footer);
