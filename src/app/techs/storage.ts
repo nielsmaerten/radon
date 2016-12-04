@@ -1,5 +1,5 @@
 /// <reference path="../../../typings/index.d.ts" />
-import { EncryptedStory, Story } from '../model/radon';
+import { EncryptedStory } from '../model/radon';
 import { FirebaseService } from './firebase';
 import { AuthService } from './auth';
 import * as firebase from 'firebase';
@@ -25,13 +25,13 @@ export class StorageService {
   }
 
   public fetchStory(date: Date): angular.IPromise<EncryptedStory> {
-    let deferred: angular.IDeferred<EncryptedStory> = this.$q.defer<EncryptedStory>();
+    let deferred = this.$q.defer<EncryptedStory>();
     let story = this.tryGetStoryFromCache(date);
     if (story) {
       deferred.resolve(story);
     } else {
       this.database.ref(this.getStoryRef(date)).on('value', snapshot => {
-        let story: EncryptedStory = snapshot.val();
+        let story: EncryptedStory = new EncryptedStory(date, snapshot.val().Contents);
         this.stories[this.getDateRef(story.Date)] = story;
         deferred.resolve(story);
       });
