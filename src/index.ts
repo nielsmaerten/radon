@@ -2,7 +2,6 @@
 
 import * as angular from 'angular';
 
-import {techsModule} from './app/techs/index';
 import 'angular-ui-router';
 import routesConfig from './routes';
 
@@ -14,7 +13,7 @@ import {footer} from './app/components/footer';
 import './index.scss';
 
 angular
-  .module('app', [techsModule, 'ui.router'])
+  .module('app', ['ui.router'])
   .config(routesConfig)
   .component('app', main)
   .component('appHeader', header)
