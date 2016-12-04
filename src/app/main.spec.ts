@@ -2,6 +2,7 @@
 
 import * as angular from 'angular';
 import 'angular-mocks';
+import * as $ from 'jquery';
 import {main} from './main';
 
 describe('main component', () => {
@@ -12,12 +13,21 @@ describe('main component', () => {
     angular.mock.module('app');
   });
 
-  it('should render the header, title, techs and footer', angular.mock.inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService) => {
-    const element = $compile('<app></app>')($rootScope);
+  it('should render the header component', angular.mock.inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService) => {
+    const element = $($compile('<app></app>')($rootScope));
     $rootScope.$digest();
-    expect(element.find('app-header').length).toEqual(1);
-    expect(element.find('fountain-title').length).toEqual(1);
-    expect(element.find('fountain-techs').length).toEqual(1);
-    expect(element.find('fountain-footer').length).toEqual(1);
+    expect(element.find('app-header').length).toBeGreaterThan(0);
+  }));
+
+  it('should render the footer component', angular.mock.inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService) => {
+    const element = $($compile('<app></app>')($rootScope));
+    $rootScope.$digest();
+    expect(element.find('app-footer').length).toBeGreaterThan(0);
+  }));
+
+  it('should render the banner component', angular.mock.inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService) => {
+    const element = $($compile('<app></app>')($rootScope));
+    $rootScope.$digest();
+    expect(element.find('app-banner').length).toBeGreaterThan(0);
   }));
 });
