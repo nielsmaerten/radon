@@ -16,7 +16,9 @@ export class FirebaseService {
       storageBucket: 'radon-ce805.appspot.com',
       messagingSenderId: '570883459269'
     };
-    firebase.initializeApp(config);
+    if (firebase.apps.length === 0) {
+      firebase.initializeApp(config);
+    }
 
     this._database = firebase.database();
     this._auth = firebase.auth();
