@@ -6,6 +6,10 @@ exports.loaders = [
     ]
   },
   {
+    test: /\.(svg|png|jpe?g|gif)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+    loader: 'url'
+  },
+  {
     test: /\.ts$/,
     exclude: /node_modules/,
     loaders: [
