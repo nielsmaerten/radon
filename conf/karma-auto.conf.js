@@ -32,7 +32,7 @@ module.exports = function (config) {
     ngHtml2JsPreprocessor: {
       stripPrefix: `${conf.paths.src}/`
     },
-    reporters: ['progress', 'coverage'],
+    reporters: ['progress', 'coverage', 'kjhtml'],
     coverageReporter: {
       type: 'html',
       dir: 'coverage/'
@@ -48,6 +48,7 @@ module.exports = function (config) {
       require('karma-phantomjs-launcher'),
       require('karma-phantomjs-shim'),
       require('karma-ng-html2js-preprocessor'),
+      require('karma-jasmine-html-reporter'),
       require('karma-webpack'),
       require('karma-es6-shim')
     ]
