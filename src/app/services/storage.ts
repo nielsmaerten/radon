@@ -42,6 +42,10 @@ export class StorageService {
     return deferred.promise;
   }
 
+  public deleteStory(date: Date): Q.Promise<{}> {
+    throw 'not implemented';
+  }
+
   private tryGetStoryFromCache(date: Date) {
     return this.stories[this.getDateRef(date)];
   }
