@@ -11,9 +11,9 @@ describe('encryption service', () => {
 
   beforeEach(() => {
     angular
-      .module('fountainTech', ['app/techs/tech.html'])
+      .module('app')
       .service('EncryptionService', EncryptionService);
-    angular.mock.module('fountainTech');
+    angular.mock.module('app');
   });
 
   it('should load encryption key', angular.mock.inject((EncryptionService: EncryptionService) => {

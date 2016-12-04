@@ -11,12 +11,12 @@ import { PlainStory } from '../model/radon';
 describe('storage service', () => {
   beforeEach(done => {
     angular
-      .module('fountainTech', ['app/techs/tech.html'])
+      .module('app')
       .service('StorageService', StorageService)
       .service('AuthService', AuthService)
       .service('FirebaseService', FirebaseService)
       .service('EncryptionService', EncryptionService);
-    angular.mock.module('fountainTech');
+    angular.mock.module('app');
 
     angular.mock.inject((EncryptionService: EncryptionService, AuthService: AuthService, StorageService: StorageService) => {
       let plainStory = new PlainStory(new Date(), 'This is a test');
