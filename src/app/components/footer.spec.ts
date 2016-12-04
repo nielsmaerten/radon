@@ -13,10 +13,10 @@ describe('footer component', () => {
     angular.mock.module('appFooter');
   });
 
-  xit('should render a title', angular.mock.inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService) => {
+  it('should render a copyright notice', angular.mock.inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService) => {
     const element = $($compile('<app-footer></app-footer>')($rootScope));
     $rootScope.$digest();
-    let selector = '#footer .inner header h1';
+    let selector = '#footer .copyright';
     expect(element.find(selector).length).toBeGreaterThan(0);
   }));
 });
