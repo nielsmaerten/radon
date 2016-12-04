@@ -9,35 +9,13 @@ const autoprefixer = require('autoprefixer');
 
 module.exports = {
   module: {
-    loaders: [
-      {
-        test: /.json$/,
-        loaders: [
-          'json'
-        ]
-      },
-      {
+    loaders: require('./webpack-common.js').loaders.concat([{
         test: /\.(css|scss)$/,
         loaders: ExtractTextPlugin.extract({
           fallbackLoader: 'style',
           loader: 'css?minimize!sass!postcss'
         })
-      },
-      {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        loaders: [
-          'ng-annotate',
-          'ts'
-        ]
-      },
-      {
-        test: /.html$/,
-        loaders: [
-          'html'
-        ]
-      }
-    ]
+      }])
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),

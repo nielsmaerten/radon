@@ -15,13 +15,7 @@ module.exports = {
       }
     ],
 
-    loaders: [
-      {
-        test: /.json$/,
-        loaders: [
-          'json'
-        ]
-      },
+    loaders: require('./webpack-common.js').loaders.concat([
       {
         test: /\.(css|scss)$/,
         loaders: [
@@ -30,22 +24,8 @@ module.exports = {
           'sass',
           'postcss'
         ]
-      },
-      {
-        test: /\.ts$/,
-        exclude: /node_modules/,
-        loaders: [
-          'ng-annotate',
-          'ts'
-        ]
-      },
-      {
-        test: /.html$/,
-        loaders: [
-          'html'
-        ]
       }
-    ]
+    ])
   },
   plugins: [
     new webpack.optimize.OccurrenceOrderPlugin(),
