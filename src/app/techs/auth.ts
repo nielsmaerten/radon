@@ -34,7 +34,6 @@ export class AuthService {
         let provider = new firebase.auth.GoogleAuthProvider();
         this.auth.signInWithRedirect(provider);
       } else {
-        console.log('1st hit');
         deferred.resolve(user);
       }
     });

@@ -6,12 +6,10 @@ import { StorageService } from './storage';
 import { EncryptionService } from './encryption';
 import { FirebaseService } from './firebase';
 import { AuthService } from './auth';
-import { PlainStory, EncryptedStory } from '../model/radon';
+import { PlainStory } from '../model/radon';
 
 describe('storage service', () => {
-  let exampleStory: EncryptedStory;
-
-  beforeEach(() => {
+  beforeEach(done => {
     angular
       .module('fountainTech', ['app/techs/tech.html'])
       .service('StorageService', StorageService)
@@ -20,23 +18,26 @@ describe('storage service', () => {
       .service('EncryptionService', EncryptionService);
     angular.mock.module('fountainTech');
 
-    angular.mock.inject((EncryptionService: EncryptionService) => {
+    angular.mock.inject((EncryptionService: EncryptionService, AuthService: AuthService, StorageService: StorageService) => {
       let plainStory = new PlainStory(new Date(), 'This is a test');
       EncryptionService.loadEncryptionKey('testPassword');
       this.exampleStory = EncryptionService.encryptStory(plainStory);
+      AuthService.signIn().then(done);
     });
   });
 
-  xit('should fetch a story from firebase', angular.mock.inject((StorageService: StorageService) => {
-    //
+  it('should fetch a story from firebase', done => angular.mock.inject((StorageService: StorageService) => {
+    StorageService.fetchStory(new Date()).then((story) => {
+      expect(story).toBeDefined();
+      done();
+    });
   }));
 
-  it('should save a story to firebase', angular.mock.inject((StorageService: StorageService) => {
-    debugger;
+  it('should save a story to firebase', angular.mock.inject((StorageService: StorageService, AuthService: AuthService) => {
     StorageService.saveStory(this.exampleStory);
   }));
 
-  xit('should delete a saved story from database', angular.mock.inject((StorageService: StorageService) => {
+  xit('should delete a saved story from firebase', angular.mock.inject((StorageService: StorageService) => {
     //
   }));
 });
