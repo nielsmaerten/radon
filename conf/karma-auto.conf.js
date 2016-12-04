@@ -10,7 +10,7 @@ module.exports = function (config) {
       outputDir: 'test-reports'
     },
     browsers: [
-      'PhantomJS'
+      //'PhantomJS' // disabled. Use karma-server in a browser instead (required to test against firebase)
     ],
     frameworks: [
       'jasmine',
