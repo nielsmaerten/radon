@@ -42,7 +42,7 @@ export class StorageService {
     return deferred.promise;
   }
 
-  public deleteStory(date: Date): Q.Promise<{}> {
+  public deleteStory(date: Date): firebase.Promise<any> {
     return this.database.ref(this.getStoryRef(date)).remove();
   }
 
