@@ -43,7 +43,7 @@ export class StorageService {
   }
 
   public deleteStory(date: Date): Q.Promise<{}> {
-    throw 'not implemented';
+    return this.database.ref(this.getStoryRef(date)).remove();
   }
 
   private tryGetStoryFromCache(date: Date) {
