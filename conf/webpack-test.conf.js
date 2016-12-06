@@ -31,7 +31,7 @@ module.exports = {
       }
     ]
   },
-  plugins: [],
+  plugins: [new webpack.ProvidePlugin(require('./webpack-plugins'))],
   debug: true,
   devtool: 'source-map',
   resolve: {

@@ -32,7 +32,8 @@ module.exports = {
     new webpack.NoErrorsPlugin(),
     new HtmlWebpackPlugin({
       template: conf.path.src('index.html')
-    })
+    }),
+    new webpack.ProvidePlugin(require('./webpack-plugins.js'))
   ],
   postcss: () => [autoprefixer],
   debug: true,
