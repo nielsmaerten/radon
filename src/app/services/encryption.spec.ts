@@ -25,6 +25,8 @@ describe('encryption service', () => {
   it('should encrypt a story', angular.mock.inject((EncryptionService: EncryptionService) => {
     EncryptionService.loadEncryptionKey(testPassword);
     let encryptedStory: EncryptedStory = EncryptionService.encryptStory(testPlainStory);
+    console.log('testPlainStory: ' + JSON.stringify(testPlainStory));
+    console.log('encryptedStory: ' + JSON.stringify(encryptedStory));
     expect(encryptedStory.Contents).toBeDefined();
     expect(encryptedStory.Date).toBeDefined();
   }));
@@ -33,6 +35,9 @@ describe('encryption service', () => {
     EncryptionService.loadEncryptionKey(testPassword);
     let encryptedStory: EncryptedStory = EncryptionService.encryptStory(testPlainStory);
     let decryptedStory: PlainStory = EncryptionService.decryptStory(encryptedStory);
+    console.log('testPlainStory: ' + JSON.stringify(testPlainStory));
+    console.log('encryptedStory: ' + JSON.stringify(encryptedStory));
+    console.log('decryptedStory: ' + JSON.stringify(decryptedStory));
     expect(testPlainStory.Contents).toEqual(decryptedStory.Contents);
     expect(testPlainStory.Date).toEqual(decryptedStory.Date);
   }));
