@@ -2,7 +2,7 @@ module.exports = {
      $: "jquery",
      jQuery: "jquery",
      "window.jQuery": "jquery",
-     skel: "skel-framework"
+     skel: "skel-framework/dist/skel.min.js"
     // "window.moment": "moment",
     // moment: "moment",
     // "Dropzone": "dropzone",
