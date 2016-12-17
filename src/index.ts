@@ -11,11 +11,15 @@ import {header} from './app/components/header';
 import {banner} from './app/components/banner';
 import {footer} from './app/components/footer';
 
+import { emojiFilter, emojiDirective } from './app/filters/emoji';
+
 import './index.scss';
 
 angular
   .module('app', ['ui.router'])
   .config(routesConfig)
+  .filter('emoji', emojiFilter)
+  .directive('emoji', emojiDirective)
   .component('app', main)
   .component('appHeader', header)
   .component('appBanner', banner)
