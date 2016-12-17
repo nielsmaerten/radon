@@ -1,7 +1,7 @@
 module.exports = {
-    // $: "jquery",
-    // jQuery: "jquery",
-    // "window.jQuery": "jquery",
+     $: "jquery",
+     jQuery: "jquery",
+     "window.jQuery": "jquery",
     // "window.moment": "moment",
     // moment: "moment",
     // "Dropzone": "dropzone",
