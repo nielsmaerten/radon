@@ -1,11 +1,10 @@
 <section id="banner">
   <div class="inner">
     <header>
-      <h1 emoji>Hello you! :relaxed:</h1>
-      <h3>Welcome to Radon</h3>
+      <h1 emoji>Hello you :relaxed: Welcome to Radon</h1>
     </header>
 
-    <div class="flex ">
+    <!--<div class="flex ">
 
       <div>
         <span class="icon fa-car"></span>
@@ -25,10 +24,10 @@
         <p>Nulla vitae mauris non felis</p>
       </div>
 
-    </div>
+    </div>-->
 
     <footer>
-      <a href="#" class="button">Get Started</a>
+      <a ng-click="$ctrl.AuthService.signIn()" class="button"><i class="fa fa-google"></i> Sign in with Google</a>
     </footer>
   </div>
 </section>
