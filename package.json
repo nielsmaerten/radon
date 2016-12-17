@@ -60,6 +60,7 @@
     "q": "^1.4.1",
     "sass-loader": "^3.1.2",
     "sjcl": "^1.0.6",
+    "skel-framework": "github:ajlkn/skel",
     "style-loader": "^0.13.0",
     "ts-loader": "^0.8.2",
     "tslint": "^3.2.1",
