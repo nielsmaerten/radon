@@ -6,10 +6,13 @@ import '../projection_theme/assets/js/main.js';
 import 'angular-ui-router';
 import routesConfig from './routes';
 
-import {main} from './app/main';
-import {header} from './app/components/header';
-import {banner} from './app/components/banner';
-import {footer} from './app/components/footer';
+import { main } from './app/main';
+import { header } from './app/components/header';
+import { banner } from './app/components/banner';
+import { footer } from './app/components/footer';
+
+import { AuthService } from './app/services/auth';
+import { FirebaseService } from './app/services/firebase';
 
 import { emojiFilter, emojiDirective } from './app/filters/emoji';
 
@@ -20,6 +23,8 @@ angular
   .config(routesConfig)
   .filter('emoji', emojiFilter)
   .directive('emoji', emojiDirective)
+  .service('AuthService', AuthService)
+  .service('FirebaseService', FirebaseService)
   .component('app', main)
   .component('appHeader', header)
   .component('appBanner', banner)
