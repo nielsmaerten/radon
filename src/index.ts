@@ -1,7 +1,8 @@
 /// <reference path="../typings/index.d.ts" />
 
 import * as angular from 'angular';
-
+import '../projection_theme/assets/js/util.js';
+import '../projection_theme/assets/js/main.js';
 import 'angular-ui-router';
 import routesConfig from './routes';
 
