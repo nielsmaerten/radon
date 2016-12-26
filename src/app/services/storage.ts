@@ -9,7 +9,7 @@ import * as Q from 'q';
 
 export class StorageService {
   private database: firebase.database.Database;
-  private EntropyService: EntropyService;
+  private entropyService: EntropyService;
   private authService: AuthService;
   private stories: any;
 
@@ -34,7 +34,7 @@ export class StorageService {
       if (snapshot.val()) {
         deferred.reject('Salt already set');
       } else {
-        this.EntropyService.generateSalt().then(salt => {
+        this.entropyService.generateSalt().then(salt => {
           this.database.ref(this.getSaltRef()).set(salt).then(() => deferred.resolve());
         });
       }

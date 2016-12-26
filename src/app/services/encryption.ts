@@ -1,5 +1,6 @@
 /// <reference path="../../../typings/index.d.ts" />
 import { PlainStory, EncryptedStory } from '../model/radon';
+import { StorageService } from './storage';
 import * as sjcl from 'sjcl';
 
 export class EncryptionService {
@@ -8,8 +9,10 @@ export class EncryptionService {
 
 
   /** @ngInject */
-  constructor() {
-    this.Salt = 'TODO'; // todo
+  constructor(StorageService: StorageService) {
+    StorageService.onSaltSet((salt) => {
+      this.Salt = salt;
+    });
   }
 
   public encryptStory(PlainStory: PlainStory): EncryptedStory {
@@ -31,6 +34,10 @@ export class EncryptionService {
 
   public isReady(): boolean {
     return this.EncryptionKey !== undefined && this.EncryptionKey.length > 0;
+  }
+
+  public hasSalt(): boolean {
+    return this.Salt !== undefined;
   }
 
   private loadSalt(): sjcl.BitArray {
