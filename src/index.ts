@@ -13,6 +13,8 @@ import { footer } from './app/components/footer';
 
 import { AuthService } from './app/services/auth';
 import { FirebaseService } from './app/services/firebase';
+import { EncryptionService } from './app/services/encryption';
+import { StorageService } from './app/services/storage';
 
 import { emojiFilter, emojiDirective } from './app/filters/emoji';
 
@@ -25,6 +27,8 @@ angular
   .directive('emoji', emojiDirective)
   .service('AuthService', AuthService)
   .service('FirebaseService', FirebaseService)
+  .service('EncryptionService', EncryptionService)
+  .service('StorageService', StorageService)
   .component('app', main)
   .component('appHeader', header)
   .component('appBanner', banner)
