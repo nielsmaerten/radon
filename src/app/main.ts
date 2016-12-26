@@ -1,8 +1,11 @@
+import { AuthService } from './services/auth';
+
 class MainController {
+  private AuthService: AuthService;
 
   /** @ngInject */
-  constructor() {
-    //
+  constructor(AuthService: AuthService) {
+    this.AuthService = AuthService;
   }
 }
 export const main: angular.IComponentOptions = {

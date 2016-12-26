@@ -4,11 +4,15 @@ import * as angular from 'angular';
 import 'angular-mocks';
 import * as $ from 'jquery';
 import {main} from './main';
+import {AuthService} from './services/auth';
+import {FirebaseService} from './services/firebase';
 
 describe('main component', () => {
   beforeEach(() => {
     angular
       .module('app', ['app/main.html'])
+      .service('AuthService', AuthService)
+      .service('FirebaseService', FirebaseService)
       .component('app', main);
     angular.mock.module('app');
   });
