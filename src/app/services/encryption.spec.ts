@@ -3,6 +3,8 @@
 import * as angular from 'angular';
 import 'angular-mocks';
 import { EncryptionService } from './encryption';
+import { StorageService } from './storage';
+import { EntropyService } from './entropy';
 import { PlainStory, EncryptedStory } from '../model/radon';
 
 describe('encryption service', () => {
@@ -12,7 +14,10 @@ describe('encryption service', () => {
   beforeEach(() => {
     angular
       .module('app')
-      .service('EncryptionService', EncryptionService);
+      .service('EncryptionService', EncryptionService)
+      .service('StorageService', StorageService)
+      .service('EntropyService', EntropyService)
+      ;
     angular.mock.module('app');
   });
 
