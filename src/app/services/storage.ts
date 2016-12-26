@@ -1,6 +1,7 @@
 /// <reference path="../../../typings/index.d.ts" />
 import { EncryptedStory } from '../model/radon';
 import { FirebaseService } from './firebase';
+import { EntropyService } from './entropy';
 import { AuthService } from './auth';
 import * as firebase from 'firebase';
 import * as moment from 'moment';
@@ -8,15 +9,37 @@ import * as Q from 'q';
 
 export class StorageService {
   private database: firebase.database.Database;
+  private EntropyService: EntropyService;
   private authService: AuthService;
   private stories: any;
 
 
   /** @ngInject */
-  constructor(FirebaseService: FirebaseService, AuthService: AuthService) {
+  constructor(FirebaseService: FirebaseService, AuthService: AuthService, EntropyService: EntropyService) {
     this.database = FirebaseService.getDatabase();
     this.authService = AuthService;
+    this.entropyService = EntropyService;
     this.stories = {};
+  }
+
+  public onSaltSet(callback: Function) {
+    this.database.ref(this.getSaltRef())
+      .on('value', snapshot => callback(snapshot.val()));
+  }
+
+  public setSalt() {
+    let deferred = Q.defer();
+    // verify the salt hasn't been set yet
+    this.database.ref(this.getSaltRef()).once('value', snapshot => {
+      if (snapshot.val()) {
+        deferred.reject('Salt already set');
+      } else {
+        this.EntropyService.generateSalt().then(salt => {
+          this.database.ref(this.getSaltRef()).set(salt).then(() => deferred.resolve());
+        });
+      }
+    });
+    return deferred.promise;
   }
 
   public saveStory(story: EncryptedStory) {
@@ -54,6 +77,11 @@ export class StorageService {
     let dateRef = this.getDateRef(storyDate);
     let userId = this.authService.getUserId();
     return `users/${userId}/entries/${dateRef}`;
+  }
+
+  private getSaltRef() {
+    let userId = this.authService.getUserId();
+    return `users/${userId}/salt`;
   }
 
   private getDateRef(date: Date) {
