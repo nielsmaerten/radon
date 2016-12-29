@@ -30,7 +30,6 @@ describe('storage service', () => {
       AuthService.signIn();
       AuthService.authPromise.then(() => {
         StorageService.onSaltSet(() => {
-          debugger;
           if (EncryptionService.hasSalt()) {
             testSetup();
           } else {

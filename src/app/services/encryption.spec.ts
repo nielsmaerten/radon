@@ -5,20 +5,34 @@ import 'angular-mocks';
 import { EncryptionService } from './encryption';
 import { StorageService } from './storage';
 import { EntropyService } from './entropy';
+import { AuthService } from './auth';
 import { PlainStory, EncryptedStory } from '../model/radon';
 
 describe('encryption service', () => {
   let testPassword: string = 'TESTPASSWORD';
   let testPlainStory: PlainStory = new PlainStory(new Date(), 'This is a test');
 
-  beforeEach(() => {
+  beforeEach((done) => {
     angular
       .module('app')
       .service('EncryptionService', EncryptionService)
       .service('StorageService', StorageService)
       .service('EntropyService', EntropyService)
+      .service('AuthService', AuthService)
       ;
     angular.mock.module('app');
+    angular.mock.inject((AuthService: AuthService, EncryptionService: EncryptionService, StorageService: StorageService) => {
+      AuthService.signIn();
+      AuthService.authPromise.then(() => {
+        StorageService.onSaltSet(() => {
+          if (!EncryptionService.hasSalt()) {
+            StorageService.setSalt().then(done);
+          } else {
+            done();
+          }
+        });
+      });
+    });
   });
 
   it('should load encryption key', angular.mock.inject((EncryptionService: EncryptionService) => {
