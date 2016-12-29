@@ -3,10 +3,9 @@
 import * as angular from 'angular';
 import 'angular-mocks';
 import { StorageService } from './storage';
-import { EncryptionService } from './encryption';
 import { FirebaseService } from './firebase';
 import { AuthService } from './auth';
-import { PlainStory } from '../model/radon';
+import { EncryptedStory } from '../model/radon';
 
 describe('storage service', () => {
   let testDate = new Date(1880, 10, 10);
@@ -16,26 +15,14 @@ describe('storage service', () => {
       .service('StorageService', StorageService)
       .service('AuthService', AuthService)
       .service('FirebaseService', FirebaseService)
-      .service('EncryptionService', EncryptionService);
+      ;
     angular.mock.module('app');
 
-    angular.mock.inject((EncryptionService: EncryptionService, AuthService: AuthService, StorageService: StorageService) => {
-      var testSetup = () => {
-        let plainStory = new PlainStory(testDate, 'This is a test');
-        EncryptionService.loadEncryptionKey('testPassword');
-        this.exampleStory = EncryptionService.encryptStory(plainStory);
-        done();
-      };
-
+    angular.mock.inject((AuthService: AuthService) => {
       AuthService.signIn();
       AuthService.authPromise.then(() => {
-        StorageService.onSaltSet(() => {
-          if (EncryptionService.hasSalt()) {
-            testSetup();
-          } else {
-            StorageService.setSalt().then(testSetup);
-          }
-        });
+        this.exampleStory = new EncryptedStory(testDate, 'TEST-ENCRYPTED');
+        done();
       });
     });
   });
