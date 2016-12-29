@@ -54,4 +54,12 @@ describe('storage service', () => {
       });
     });
   }));
+
+  it('should set a salt', done => angular.mock.inject((StorageService: StorageService) => {
+    StorageService.setSalt();
+    StorageService.onSaltSet((salt: string) => {
+      expect(salt.length).toBeGreaterThan(10);
+      done();
+    });
+  }));
 });
