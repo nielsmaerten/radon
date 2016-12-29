@@ -5,15 +5,19 @@ import { FirebaseService } from './firebase';
 
 export class AuthService {
   public isAuthenticated: boolean;
+  public authPromise: Q.Promise<{}>;
   private auth: firebase.auth.Auth;
 
   /** @ngInject */
   constructor(FirebaseService: FirebaseService) {
     this.auth = FirebaseService.getAuth();
+    let deferred = Q.defer();
+    this.authPromise = deferred.promise;
 
     this.auth.onAuthStateChanged(user => {
       if (user) {
         this.isAuthenticated = true;
+        deferred.resolve();
       } else {
         this.isAuthenticated = false;
       }
@@ -25,17 +29,13 @@ export class AuthService {
     return this.isAuthenticated /*&& this.auth.currentUser*/ ? this.auth.currentUser.uid : null;
   }
 
-  public signIn(): Q.Promise<{}> {
-    let deferred = Q.defer();
+  public signIn() {
     this.auth.onAuthStateChanged(user => {
-      if (user) {
-        deferred.resolve();
-      } else {
+      if (!user) {
         let provider = new firebase.auth.GoogleAuthProvider();
         this.auth.signInWithRedirect(provider);
       }
     });
-    return deferred.promise;
   }
 
   public signOut() {
