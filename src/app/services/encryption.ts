@@ -37,10 +37,11 @@ export class EncryptionService {
   }
 
   public hasSalt(): boolean {
-    return this.Salt !== undefined;
+    return this.Salt != null;
   }
 
   private loadSalt(): sjcl.BitArray {
+    if (!this.hasSalt()) { throw 'Salt not initialized!'; }
     return sjcl.codec.utf8String.toBits(this.Salt);
   }
 };
