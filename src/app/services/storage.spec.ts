@@ -20,10 +20,24 @@ describe('storage service', () => {
     angular.mock.module('app');
 
     angular.mock.inject((EncryptionService: EncryptionService, AuthService: AuthService, StorageService: StorageService) => {
-      let plainStory = new PlainStory(testDate, 'This is a test');
-      EncryptionService.loadEncryptionKey('testPassword');
-      this.exampleStory = EncryptionService.encryptStory(plainStory);
-      AuthService.signIn().then(done);
+      var testSetup = () => {
+        let plainStory = new PlainStory(testDate, 'This is a test');
+        EncryptionService.loadEncryptionKey('testPassword');
+        this.exampleStory = EncryptionService.encryptStory(plainStory);
+        done();
+      };
+
+      AuthService.signIn();
+      AuthService.authPromise.then(() => {
+        StorageService.onSaltSet(() => {
+          debugger;
+          if (EncryptionService.hasSalt()) {
+            testSetup();
+          } else {
+            StorageService.setSalt().then(testSetup);
+          }
+        });
+      });
     });
   });
 
@@ -43,7 +57,7 @@ describe('storage service', () => {
       done();
     }).catch(error => {
       throw error;
-     });
+    });
   }));
 
   it('should delete a saved story from firebase', done => angular.mock.inject((StorageService: StorageService) => {
