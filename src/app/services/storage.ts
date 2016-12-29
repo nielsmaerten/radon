@@ -23,21 +23,25 @@ export class StorageService {
   }
 
   public onSaltSet(callback: Function) {
-    this.database.ref(this.getSaltRef())
-      .on('value', snapshot => callback(snapshot.val()));
+    this.getSaltRef().then(ref => {
+      this.database.ref(ref)
+        .on('value', snapshot => callback(snapshot.val()));
+    });
   }
 
-  public setSalt() {
+  public setSalt(): Q.Promise<{}> {
     let deferred = Q.defer();
     // verify the salt hasn't been set yet
-    this.database.ref(this.getSaltRef()).once('value', snapshot => {
-      if (snapshot.val()) {
-        deferred.reject('Salt already set');
-      } else {
-        this.entropyService.generateSalt().then(salt => {
-          this.database.ref(this.getSaltRef()).set(salt).then(() => deferred.resolve());
-        });
-      }
+    this.getSaltRef().then(ref => {
+      this.database.ref(ref).once('value', snapshot => {
+        if (snapshot.val()) {
+          deferred.reject('Salt already set');
+        } else {
+          this.entropyService.generateSalt().then(salt => {
+            this.database.ref(ref).set(salt).then(() => deferred.resolve());
+          });
+        }
+      });
     });
     return deferred.promise;
   }
@@ -79,9 +83,13 @@ export class StorageService {
     return `users/${userId}/entries/${dateRef}`;
   }
 
-  private getSaltRef() {
-    let userId = this.authService.getUserId();
-    return `users/${userId}/salt`;
+  private getSaltRef(): Q.Promise<string> {
+    let deferred = Q.defer<string>();
+    this.authService.authPromise.then(() => {
+      let userId = this.authService.getUserId();
+      deferred.resolve(`users/${userId}/salt`);
+    });
+    return deferred.promise;
   }
 
   private getDateRef(date: Date) {
