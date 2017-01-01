@@ -53,6 +53,7 @@
     "karma-phantomjs-shim": "^1.1.2",
     "karma-webpack": "^1.7.0",
     "moment": "^2.17.0",
+    "more-entropy": "0.0.7",
     "ng-annotate-loader": "^0.0.10",
     "node-sass": "^3.4.2",
     "phantomjs-prebuilt": "^2.1.6",
