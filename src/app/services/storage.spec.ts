@@ -9,6 +9,7 @@ import { EncryptedStory } from '../model/radon';
 
 describe('storage service', () => {
   let testDate = new Date(1880, 10, 10);
+  let exampleStory = new EncryptedStory(testDate, '{\"iv\":\"d9bpnvgxYvMwKtxUWAjTsw==\",\"v\":1,\"iter\":10000,\"ks\":128,\"ts\":64,\"mode\":\"ccm\",\"adata\":\"\",\"cipher\":\"aes\",\"ct\":\"rupx/JeVz5/JgR/6IzSN5LMrHa9qAw==\"}');
   beforeEach(done => {
     angular
       .module('app')
@@ -21,7 +22,6 @@ describe('storage service', () => {
     angular.mock.inject((AuthService: AuthService) => {
       AuthService.signIn();
       AuthService.authPromise.then(() => {
-        this.exampleStory = new EncryptedStory(testDate, 'TEST-ENCRYPTED');
         done();
       });
     });
@@ -32,7 +32,7 @@ describe('storage service', () => {
       fail('A story already exists at date ' + testDate + '. No story should exist here before tests.');
     }).catch(error => {
       expect(error).toBeDefined();
-      StorageService.saveStory(this.exampleStory);
+      StorageService.saveStory(exampleStory);
       done();
     });
   }));
