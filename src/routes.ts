@@ -9,7 +9,11 @@ function routesConfig($stateProvider: angular.ui.IStateProvider, $urlRouterProvi
 
   $stateProvider
     .state('app', {
-      url: '/',
       component: 'app'
-    });
+    })
+    .state('app.home', {
+      component: 'appBanner',
+      url: '/'
+    })
+    ;
 }
