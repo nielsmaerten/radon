@@ -29,9 +29,9 @@ describe('main component', () => {
     expect(element.find('app-footer').length).toBeGreaterThan(0);
   }));
 
-  it('should render the banner component', angular.mock.inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService) => {
+  it('should render the ui-view component', angular.mock.inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService) => {
     const element = $($compile('<app></app>')($rootScope));
     $rootScope.$digest();
-    expect(element.find('app-banner').length).toBeGreaterThan(0);
+    expect(element.find('ui-view').length).toBeGreaterThan(0);
   }));
 });
