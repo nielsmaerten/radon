@@ -10,6 +10,10 @@ import { main } from './app/main';
 import { header } from './app/components/header';
 import { banner } from './app/components/banner';
 import { footer } from './app/components/footer';
+import { accountReset } from './app/components/account/reset';
+import { cryptoSetup } from './app/components/crypto/setup';
+import { cryptoUnlock } from './app/components/crypto/unlock';
+import { storyRead } from './app/components/story/read';
 
 import { AuthService } from './app/services/auth';
 import { FirebaseService } from './app/services/firebase';
@@ -32,4 +36,9 @@ angular
   .component('app', main)
   .component('appHeader', header)
   .component('appBanner', banner)
-  .component('appFooter', footer);
+  .component('appFooter', footer)
+  .component('appAccountReset', accountReset)
+  .component('appCryptoUnlock', cryptoUnlock)
+  .component('appCryptoSetup', cryptoSetup)
+  .component('appStoryRead', storyRead)
+  ;
