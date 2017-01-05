@@ -4,7 +4,7 @@ import * as Q from 'q';
 import { FirebaseService } from './firebase';
 
 export class AuthService {
-  public isAuthenticated: boolean;
+  public isAuthenticated: boolean = false;
   public authPromise: Q.Promise<{}>;
   private auth: firebase.auth.Auth;
 
@@ -22,7 +22,6 @@ export class AuthService {
         this.isAuthenticated = false;
       }
     });
-    this.isAuthenticated = !this.auth.currentUser;
   }
 
   public getUserId() {
