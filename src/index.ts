@@ -7,6 +7,7 @@ import 'angular-ui-router';
 import routesConfig from './routes';
 
 import { main } from './app/main';
+import { rootController } from './app/root';
 import { header } from './app/components/header';
 import { banner } from './app/components/banner';
 import { footer } from './app/components/footer';
@@ -34,6 +35,7 @@ angular
   .service('EncryptionService', EncryptionService)
   .service('StorageService', StorageService)
   .component('app', main)
+  .controller('rootController', rootController)
   .component('appHeader', header)
   .component('appBanner', banner)
   .component('appFooter', footer)
