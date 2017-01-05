@@ -1,0 +1,39 @@
+<section id="three" class="wrapper">
+  <div class="inner">
+    <header class="align-center">
+      <h2>Let's set up your passphrase</h2>
+      <p>Your passphrase is used to encrypt your entries. So make it a good one!</p>
+    </header>
+
+    <form name="cryptoSetup" ng-submit="$ctrl.setPassphrase()">
+      <div class="row center-xs">
+        <div class="col-sm-10 col-xs-12">
+          <input type="password" autofocuskjkjklkj name="passphrase" ng-model="$ctrl.passphrase" placeholder="Type your passphrase"
+          />
+        </div>
+        <div class="col-sm-10 col-xs-12 mt-xs">
+          <input type="password" name="passphraseConfirm" ng-model="$ctrl.passphraseConfirm" placeholder="Once more, please" />
+        </div>
+        <div class="col-sm-10 col-xs-12 mt-xs">
+          <div class="row">
+            <div class="col-sm-8 end-sm">
+              <span ng-show="$ctrl.passphrase && $ctrl.passphraseConfirm && $ctrl.passphrase !== $ctrl.passphraseConfirm">
+                <i class="fa fa-warning"></i> Passphrases do no match
+              </span><br/>
+              <span ng-show="$ctrl.passphrase && $ctrl.passphraseConfirm && $ctrl.passphrase.length < 20">
+                <i class="fa fa-info-circle"></i> We recommend a passphrase of at least 20 characters
+              </span>
+            </div>
+            <div class="col-sm-4 end-sm">
+              <!--<input type="reset" value="Start over" />-->
+              <input ng-disabled="!$ctrl.passphrase || !$ctrl.passphraseConfirm || $ctrl.passphrase !== $ctrl.passphraseConfirm" type="submit"
+                value="Set passphrase" class="ml-xxs" />
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
