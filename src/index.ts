@@ -20,6 +20,7 @@ import { AuthService } from './app/services/auth';
 import { FirebaseService } from './app/services/firebase';
 import { EncryptionService } from './app/services/encryption';
 import { StorageService } from './app/services/storage';
+import { EntropyService } from './app/services/entropy';
 
 import { emojiFilter, emojiDirective } from './app/filters/emoji';
 
@@ -34,6 +35,7 @@ angular
   .service('FirebaseService', FirebaseService)
   .service('EncryptionService', EncryptionService)
   .service('StorageService', StorageService)
+  .service('EntropyService', EntropyService)
   .component('app', main)
   .controller('rootController', rootController)
   .component('appHeader', header)
