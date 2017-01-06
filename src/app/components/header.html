@@ -2,12 +2,12 @@
   <div class="inner">
     <a href="index.html" class="logo"><strong>Radon</strong></a>
     <nav id="nav">
-      <ng-include src="'/app/components/menuitems.html'" />
+      <app-menuitems></app-menuitems>
     </nav>
     <a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
   </div>
 </header>
 <div id="navPanel">
-  <ng-include src="'/app/components/menuitems.html'" />
+  <app-menuitems></app-menuitems>
   <a href="#navPanel" class="close"></a>
 </div>

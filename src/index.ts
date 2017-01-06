@@ -14,6 +14,7 @@ import { rootController } from './app/root';
 import { header } from './app/components/header';
 import { banner } from './app/components/banner';
 import { footer } from './app/components/footer';
+import { menuitems } from './app/components/menuitems';
 import { accountReset } from './app/components/account/reset';
 import { cryptoSetup } from './app/components/crypto/setup';
 import { cryptoUnlock } from './app/components/crypto/unlock';
@@ -50,6 +51,7 @@ angular
   .component('appHeader', header)
   .component('appBanner', banner)
   .component('appFooter', footer)
+  .component('appMenuitems', menuitems)
   .component('appCalendar', calendar)
   .component('appAccountReset', accountReset)
   .component('appCryptoUnlock', cryptoUnlock)
