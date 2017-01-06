@@ -93,10 +93,48 @@
       "from": "angular@>=1.5.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/angular/-/angular-1.6.1.tgz"
     },
+    "angular-animate": {
+      "version": "1.4.14",
+      "from": "angular-animate@>=1.4.0 <1.5.0",
+      "resolved": "http://registry.npmjs.org/angular-animate/-/angular-animate-1.4.14.tgz",
+      "dev": true
+    },
+    "angular-aria": {
+      "version": "1.4.14",
+      "from": "angular-aria@>=1.4.0 <1.5.0",
+      "resolved": "http://registry.npmjs.org/angular-aria/-/angular-aria-1.4.14.tgz",
+      "dev": true
+    },
+    "angular-material": {
+      "version": "0.11.4",
+      "from": "angular-material@>=0.11.0 <0.12.0",
+      "resolved": "http://registry.npmjs.org/angular-material/-/angular-material-0.11.4.tgz",
+      "dev": true
+    },
+    "angular-material-calendar": {
+      "version": "0.2.14",
+      "from": "angular-material-calendar@latest",
+      "resolved": "http://registry.npmjs.org/angular-material-calendar/-/angular-material-calendar-0.2.14.tgz",
+      "dev": true,
+      "dependencies": {
+        "angular": {
+          "version": "1.4.14",
+          "from": "angular@>=1.4.0 <1.5.0",
+          "resolved": "http://registry.npmjs.org/angular/-/angular-1.4.14.tgz",
+          "dev": true
+        }
+      }
+    },
     "angular-mocks": {
       "version": "1.6.1",
       "from": "angular-mocks@>=1.5.0-beta.2 <2.0.0",
       "resolved": "https://registry.npmjs.org/angular-mocks/-/angular-mocks-1.6.1.tgz",
+      "dev": true
+    },
+    "angular-sanitize": {
+      "version": "1.4.14",
+      "from": "angular-sanitize@>=1.4.0 <1.5.0",
+      "resolved": "http://registry.npmjs.org/angular-sanitize/-/angular-sanitize-1.4.14.tgz",
       "dev": true
     },
     "angular-ui-router": {
