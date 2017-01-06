@@ -4,7 +4,7 @@ import * as Q from 'q';
 import { FirebaseService } from './firebase';
 
 export class AuthService {
-  public isAuthenticated: boolean = false;
+  public isAuthenticated: boolean;
   public authPromise: Q.Promise<{}>;
   private auth: firebase.auth.Auth;
 
