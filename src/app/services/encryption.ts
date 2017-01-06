@@ -28,8 +28,8 @@ export class EncryptionService {
   }
 
   public loadEncryptionKey(passphrase: string): void {
-    let salt = this.loadSalt();
-    this.EncryptionKey = sjcl.misc.pbkdf2(passphrase, salt, 1000, 256, sjcl.misc.hmac);
+    let saltBitArray = this.loadSaltBitArray();
+    this.EncryptionKey = sjcl.misc.pbkdf2(passphrase, saltBitArray, 1000, 256, sjcl.misc.hmac);
   }
 
   public isReady(): boolean {
@@ -40,7 +40,7 @@ export class EncryptionService {
     return this.Salt != null;
   }
 
-  private loadSalt(): sjcl.BitArray {
+  private loadSaltBitArray(): sjcl.BitArray {
     if (!this.hasSalt()) { throw 'Salt not initialized!'; }
     return sjcl.codec.utf8String.toBits(this.Salt);
   }
