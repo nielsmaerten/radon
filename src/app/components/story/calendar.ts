@@ -1,6 +1,7 @@
 import { EncryptionService } from '../../services/encryption';
 
 class CalendarController {
+  private moment = require('moment');
   private EncryptionService: EncryptionService;
   private $state: ng.ui.IStateService;
 
@@ -13,6 +14,17 @@ class CalendarController {
     } else {
       // i'm allowed to be here
     }
+  }
+
+  public clickedDay = (date: Date) => {
+    let storyDate = this.moment(date).format('YYYYMMDD');
+    this.$state.go('app.storyRead', {
+      storyDate: storyDate
+    });
+  }
+
+  public setDayContent(date: Date) {
+    return '';
   }
 }
 
