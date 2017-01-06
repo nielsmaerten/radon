@@ -4,6 +4,9 @@ import * as angular from 'angular';
 import '../projection_theme/assets/js/util.js';
 // import '../projection_theme/assets/js/main.js';
 import 'angular-ui-router';
+import 'angular-material';
+import 'angular-sanitize';
+import 'angular-material-calendar/dist/angular-material-calendar.js';
 import routesConfig from './routes';
 
 import { main } from './app/main';
@@ -28,8 +31,13 @@ import { emojiFilter, emojiDirective } from './app/filters/emoji';
 import './index.scss';
 
 angular
-  .module('app', ['ui.router'])
+  .module('app', ['ui.router', 'ngMaterial', 'materialCalendar'])
   .config(routesConfig)
+  .config(($mdThemingProvider) => {
+    $mdThemingProvider
+      .theme('default')
+      .primaryPalette('grey');
+  })
   .filter('emoji', emojiFilter)
   .directive('emoji', emojiDirective)
   .service('AuthService', AuthService)
