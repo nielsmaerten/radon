@@ -54,7 +54,7 @@
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-phantomjs-shim": "^1.1.2",
     "karma-webpack": "^1.7.0",
-    "moment": "^2.17.0",
+    "moment": "https://registry.npmjs.org/moment/-/moment-2.17.1.tgz",
     "more-entropy": "0.0.7",
     "ng-annotate-loader": "^0.0.10",
     "node-sass": "^3.4.2",
