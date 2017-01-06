@@ -1,0 +1,23 @@
+<section id="three" class="wrapper">
+  <div class="inner">
+    <header class="align-center">
+      <h2>Enter your passphrase</h2>
+      <p emoji>Make sure nobody's looking over your shoulder :wink:</p>
+    </header>
+
+    <form name="cryptoUnlock" ng-submit="$ctrl.unlock()">
+      <div class="row center-xs">
+        <div class="col-sm-10 col-xs-12">
+          <input type="password" autofocus name="passphrase" ng-model="$ctrl.passphrase" placeholder="Type your passphrase" />
+        </div>
+        <div class="col-sm-10 col-xs-12 mt-xs end-sm">
+          <input ng-disabled="!$ctrl.passphrase" type="submit"
+            value="Unlock"  />
+        </div>
+        <div class="col-sm-10 col-xs-12 mt-s start-xs">
+          <a href="">I lost my passphrase</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
