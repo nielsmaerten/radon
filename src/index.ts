@@ -15,6 +15,7 @@ import { accountReset } from './app/components/account/reset';
 import { cryptoSetup } from './app/components/crypto/setup';
 import { cryptoUnlock } from './app/components/crypto/unlock';
 import { storyRead } from './app/components/story/read';
+import { calendar } from './app/components/story/calendar';
 
 import { AuthService } from './app/services/auth';
 import { FirebaseService } from './app/services/firebase';
@@ -41,6 +42,7 @@ angular
   .component('appHeader', header)
   .component('appBanner', banner)
   .component('appFooter', footer)
+  .component('appCalendar', calendar)
   .component('appAccountReset', accountReset)
   .component('appCryptoUnlock', cryptoUnlock)
   .component('appCryptoSetup', cryptoSetup)
