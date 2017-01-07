@@ -32,7 +32,7 @@ class CryptoSetupController {
 
   public setPassphrase() {
     if (this.passphrase === this.passphraseConfirm) {
-      this.StorageService.setSalt().then(() => {
+      this.StorageService.setPassphrase(this.passphrase).then(() => {
         this.EncryptionService.loadEncryptionKey(this.passphrase);
         this.$state.go('app.calendar');
       });
