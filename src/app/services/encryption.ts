@@ -5,13 +5,17 @@ import * as sjcl from 'sjcl';
 
 export class EncryptionService {
   private EncryptionKey: sjcl.BitArray;
+  private Hash: sjcl.BitArray;
   private Salt: string;
 
 
   /** @ngInject */
   constructor(StorageService: StorageService) {
-    StorageService.onSaltSet((salt) => {
+    StorageService.onSet('salt', salt => {
       this.Salt = salt;
+    });
+    StorageService.onSet('hash', hash => {
+      this.Hash = hash;
     });
   }
 
@@ -29,7 +33,12 @@ export class EncryptionService {
 
   public loadEncryptionKey(passphrase: string): void {
     let saltBitArray = this.loadSaltBitArray();
-    this.EncryptionKey = sjcl.misc.pbkdf2(passphrase, saltBitArray, 1000, 256, sjcl.misc.hmac);
+    let encryptionKey = sjcl.misc.pbkdf2(passphrase, saltBitArray, 1000, 256, sjcl.misc.hmac);
+    if (sjcl.bitArray.equal(this.Hash, sjcl.hash.sha256.hash(passphrase + this.Salt))) {
+      this.EncryptionKey = encryptionKey;
+    } else {
+      throw 'Incorrect passphrase';
+    }
   }
 
   public isReady(): boolean {
