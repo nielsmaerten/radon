@@ -4,15 +4,18 @@ import { AuthService } from '../../services/auth';
 
 class CryptoUnlockController {
   public passphrase: string;
+  public incorrectPassphrase: boolean;
   private StorageService: StorageService;
   private EncryptionService: EncryptionService;
   private $state: ng.ui.IStateService;
+  private $scope: ng.IRootScopeService;
 
   /** @ngInject */
-  constructor(StorageService: StorageService, EncryptionService: EncryptionService, $state: ng.ui.IStateService, AuthService: AuthService) {
+  constructor(StorageService: StorageService, EncryptionService: EncryptionService, $state: ng.ui.IStateService, AuthService: AuthService, $scope: ng.IRootScopeService) {
     this.EncryptionService = EncryptionService;
     this.StorageService = StorageService;
     this.$state = $state;
+    this.$scope = $scope;
     if (!AuthService.isAuthenticated) {
       // the app either has not fully initialized, or I'm simply not yet authenticated.
       // either way, I should not be unlocking right now: redirect to the home route
@@ -35,8 +38,14 @@ class CryptoUnlockController {
   }
 
   public unlock() {
-    this.EncryptionService.loadEncryptionKey(this.passphrase);
-    this.$state.go('app.calendar');
+    this.EncryptionService.loadEncryptionKey(this.passphrase)
+      .then(() => {
+        this.$state.go('app.calendar');
+      }, () => {
+        this.incorrectPassphrase = true;
+        this.passphrase = '';
+        this.$scope.$apply();
+      });
   }
 }
 

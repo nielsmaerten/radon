@@ -2,6 +2,7 @@
 import { PlainStory, EncryptedStory } from '../model/radon';
 import { StorageService } from './storage';
 import * as sjcl from 'sjcl';
+import * as Q from 'q';
 
 export class EncryptionService {
   private EncryptionKey: sjcl.BitArray;
@@ -31,14 +32,16 @@ export class EncryptionService {
     return new PlainStory(EncryptedStory.Date, decrypted);
   }
 
-  public loadEncryptionKey(passphrase: string): void {
+  public loadEncryptionKey(passphrase: string): Q.Promise<{}> {
+    let deferred = Q.defer();
     let saltBitArray = this.loadSaltBitArray();
-    let encryptionKey = sjcl.misc.pbkdf2(passphrase, saltBitArray, 1000, 256, sjcl.misc.hmac);
     if (sjcl.bitArray.equal(this.Hash, sjcl.hash.sha256.hash(passphrase + this.Salt))) {
-      this.EncryptionKey = encryptionKey;
+      this.EncryptionKey = sjcl.misc.pbkdf2(passphrase, saltBitArray, 1000, 256, sjcl.misc.hmac);
+      deferred.resolve();
     } else {
-      throw 'Incorrect passphrase';
+      deferred.reject('Incorrect passphrase');
     }
+    return deferred.promise;
   }
 
   public isReady(): boolean {

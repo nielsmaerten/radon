@@ -2,7 +2,8 @@
   <div class="inner">
     <header class="align-center">
       <h2>Enter your passphrase</h2>
-      <p emoji>Make sure nobody's looking over your shoulder :wink:</p>
+      <p ng-if="!$ctrl.incorrectPassphrase" emoji>Make sure nobody's looking over your shoulder :wink:</p>
+      <p ng-if="$ctrl.incorrectPassphrase" emoji>Sorry, incorrect passphrase! :confused:</p>
     </header>
 
     <form name="cryptoUnlock" ng-submit="$ctrl.unlock()">
@@ -11,8 +12,7 @@
           <input type="password" autofocus name="passphrase" ng-model="$ctrl.passphrase" placeholder="Type your passphrase" />
         </div>
         <div class="col-sm-10 col-xs-12 mt-xs end-sm">
-          <input ng-disabled="!$ctrl.passphrase" type="submit"
-            value="Unlock"  />
+          <input ng-disabled="!$ctrl.passphrase" type="submit" value="Unlock" />
         </div>
         <div class="col-sm-10 col-xs-12 mt-s start-xs">
           <a href="">I lost my passphrase</a>
