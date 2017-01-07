@@ -1,7 +1,7 @@
 <a href ng-if="$ctrl.$state.is('app.storyEdit')" ng-click="$ctrl.saveStory()">Save</a>
 <a href ng-if="$ctrl.$state.is('app.storyEdit')" ng-click="$ctrl.discardStory()">Discard</a>
 
-<a href ng-if="$ctrl.$state.is('app.storyEdit')  || $ctrl.$state.is('app.storyRead')" ng-click="$ctrl.deleteStory()">Delete</a>
+<a href ng-if="$ctrl.$state.is('app.storyRead')" ng-click="$ctrl.deleteStory()">Delete</a>
 <a href ng-if="$ctrl.$state.is('app.storyRead')" ng-click="$ctrl.editStory()">Edit</a>
 
 <a href ng-show="$ctrl.AuthService.isAuthenticated === false" ng-click="$ctrl.AuthService.signIn()">Log in</a>
