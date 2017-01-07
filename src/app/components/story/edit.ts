@@ -7,8 +7,9 @@ class StoryEditController {
   private moment: moment.MomentStatic = require('moment');
   private story: PlainStory;
   private date: Date;
-  private noStoryAvailable: boolean;
   private $state: ng.ui.IStateService;
+  private EncryptionService: EncryptionService;
+  private StorageService: StorageService;
 
   /** @ngInject */
   constructor($state: ng.ui.IStateService, StorageService: StorageService, EncryptionService: EncryptionService, $scope: ng.IRootScopeService) {
@@ -16,25 +17,25 @@ class StoryEditController {
       $state.go('app.home');
     } else {
       this.$state = $state;
+      this.StorageService = StorageService;
+      this.EncryptionService = EncryptionService;
       this.date = this.moment(($state.params as any).storyDate, 'YYYYMMDD').toDate();
+
       StorageService.fetchStory(this.date)
         .then(encryptedStory => {
           this.story = EncryptionService.decryptStory(encryptedStory);
           $scope.$apply();
         }, error => {
-          this.noStoryAvailable = true;
+          this.story = new PlainStory(this.date, 'Write here...');
           $scope.$apply();
         });
     }
   }
 
-  moveStory(d: number) {
-    let newDate = moment(this.date).add('day', d).format('YYYYMMDD');
-    this.$state.go('app.storyRead', { storyDate: newDate });
-  }
-
-  editStory() {
-    this.$state.go('app.storyEdit', { storyDate: moment(this.date).format('YYYYMMDD') });
+  saveStory() {
+    let encryptedStory = this.EncryptionService.encryptStory(this.story);
+    this.StorageService.saveStory(encryptedStory);
+    this.$state.go('app.storyRead', { storyDate: moment(this.date).format('YYYYMMDD') });
   }
 }
 
