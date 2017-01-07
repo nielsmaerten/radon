@@ -20,6 +20,9 @@ describe('storage service', () => {
     angular.mock.module('app');
 
     angular.mock.inject((AuthService: AuthService) => {
+      spyOn(AuthService, 'getUserId').and.callFake(() => {
+        return AuthService.isAuthenticated ? 'TESTUSER' : null;
+      });
       AuthService.signIn();
       AuthService.authPromise.then(() => {
         done();
@@ -56,8 +59,7 @@ describe('storage service', () => {
   }));
 
   it('should set a salt', done => angular.mock.inject((StorageService: StorageService) => {
-    StorageService.setSalt();
-    StorageService.onSaltSet((salt: string) => {
+    StorageService.onSet('salt', (salt: string) => {
       expect(salt.length).toBeGreaterThan(10);
       done();
     });
