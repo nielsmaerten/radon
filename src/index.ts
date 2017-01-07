@@ -19,6 +19,7 @@ import { accountReset } from './app/components/account/reset';
 import { cryptoSetup } from './app/components/crypto/setup';
 import { cryptoUnlock } from './app/components/crypto/unlock';
 import { storyRead } from './app/components/story/read';
+import { storyEdit } from './app/components/story/edit';
 import { calendar } from './app/components/story/calendar';
 
 import { AuthService } from './app/services/auth';
@@ -57,4 +58,5 @@ angular
   .component('appCryptoUnlock', cryptoUnlock)
   .component('appCryptoSetup', cryptoSetup)
   .component('appStoryRead', storyRead)
+  .component('appStoryEdit', storyEdit)
   ;

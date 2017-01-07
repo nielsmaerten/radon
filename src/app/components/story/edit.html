@@ -1,0 +1,31 @@
+<section id="three" class="wrapper">
+  <div class="inner">
+    <header class="align-center">
+      <div class="row">
+        <div class="start col-sm-1 sm-hide xs-hide">
+          <h2><a href ng-click="$ctrl.moveStory(-1)"><i class="fa fa-chevron-left"></i></a></h2>
+        </div>
+        <div class="col-sm-10 col-xs-12">
+          <a ui-sref="app.calendar">
+            <h2>{{$ctrl.date | date:'fullDate'}}</h2>
+          </a>
+        </div>
+        <div class="end col-sm-1 sm-hide xs-hide">
+          <h2><a href ng-click="$ctrl.moveStory(+1)"><i class="fa fa-chevron-right"></i></a></h2>
+        </div>
+      </div>
+    </header>
+
+    <div class="row center-xs">
+      <div class="col-lg-8 col-md-9 col-sm-12">
+        <p class="start-xs" ng-if="$ctrl.story">
+          {{$ctrl.story.Contents}}
+        </p>
+        <div ng-if="$ctrl.noStoryAvailable">
+          <p emoji>You don't have an entry for this date. Why not add something now? :writing_hand:</p>
+          <a ui-sref="$ctrl.editStory()" class="button">Start new entry</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
