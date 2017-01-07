@@ -59,6 +59,7 @@ export class StorageService {
 
   public saveStory(story: EncryptedStory) {
     this.database.ref(this.getStoryRef(story.Date)).set(story);
+    this.stories[this.getDateRef(story.Date)] = story;
   }
 
   public fetchStory(date: Date): Q.Promise<EncryptedStory> {
@@ -81,6 +82,7 @@ export class StorageService {
   }
 
   public deleteStory(date: Date): firebase.Promise<any> {
+    this.stories[this.getDateRef(date)] = undefined;
     return this.database.ref(this.getStoryRef(date)).remove();
   }
 
