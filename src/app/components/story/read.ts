@@ -29,8 +29,12 @@ class StoryReadController {
   }
 
   moveStory(d: number) {
-    let newDate = moment(this.date).add('day', d).format('YYYYMMDD');
+    let newDate = moment(this.date).add(d, 'day').format('YYYYMMDD');
     this.$state.go('app.storyRead', { storyDate: newDate });
+  }
+
+  editStory() {
+    this.$state.go('app.storyEdit', { storyDate: moment(this.date).format('YYYYMMDD') });
   }
 }
 
