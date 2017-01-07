@@ -9,7 +9,7 @@ class StoryReadController {
   private noStoryAvailable: boolean;
 
   /** @ngInject */
-  constructor($state: ng.ui.IStateService, StorageService: StorageService, EncryptionService: EncryptionService) {
+  constructor($state: ng.ui.IStateService, StorageService: StorageService, EncryptionService: EncryptionService, $scope: ng.IRootScopeService) {
     if (!EncryptionService.isReady()) {
       $state.go('app.home');
     } else {
@@ -17,9 +17,10 @@ class StoryReadController {
       StorageService.fetchStory(this.date)
         .then(encryptedStory => {
           this.story = EncryptionService.decryptStory(encryptedStory);
+          $scope.$apply();
         }, error => {
-          alert('WHAT THE FUCK IS THIS SHIT. WHY CAN\'T I SET A PROPERTY FROM HERE?!');
           this.noStoryAvailable = true;
+          $scope.$apply();
         });
     }
   }
