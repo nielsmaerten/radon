@@ -22,13 +22,16 @@ describe('encryption service', () => {
       ;
     angular.mock.module('app');
     angular.mock.inject((AuthService: AuthService, EncryptionService: EncryptionService, StorageService: StorageService) => {
+      spyOn(AuthService, 'getUserId').and.callFake(() => {
+        return AuthService.isAuthenticated ? 'TESTUSER' : null;
+      });
       AuthService.signIn();
       AuthService.authPromise.then(() => {
         StorageService.onSaltSet(() => {
           if (!EncryptionService.hasSalt()) {
-            StorageService.setSalt().then(done);
+            StorageService.setPassphrase(testPassword).then(done);
           } else {
-            done();
+            StorageService.onSet('hash', done);
           }
         });
       });
@@ -39,6 +42,16 @@ describe('encryption service', () => {
     expect(EncryptionService.isReady()).toBe(false);
     EncryptionService.loadEncryptionKey(testPassword);
     expect(EncryptionService.isReady()).toBe(true);
+  }));
+
+  it('should reject incorrect encryption key', done => angular.mock.inject((EncryptionService: EncryptionService) => {
+    expect(EncryptionService.isReady()).toBe(false);
+    try {
+      EncryptionService.loadEncryptionKey('incorrect');
+    } catch (e) {
+      expect(e).toBeDefined();
+      done();
+    }
   }));
 
   it('should encrypt a story', angular.mock.inject((EncryptionService: EncryptionService) => {
