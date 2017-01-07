@@ -6,6 +6,7 @@ import { AuthService } from './auth';
 import * as firebase from 'firebase';
 import * as moment from 'moment';
 import * as Q from 'q';
+import * as sjcl from 'sjcl';
 
 export class StorageService {
   private database: firebase.database.Database;
@@ -22,23 +23,33 @@ export class StorageService {
     this.stories = {};
   }
 
-  public onSaltSet(callback: Function) {
-    this.getSaltRef().then(ref => {
+  public onSet(shortReference: string, callback: Function) {
+    this.getCustomRef(shortReference).then(ref => {
       this.database.ref(ref)
         .on('value', snapshot => callback(snapshot.val()));
     });
   }
 
-  public setSalt(): Q.Promise<{}> {
+  /**
+   * @deprecated use onSet('salt') instead
+   */
+  public onSaltSet(cb: Function) {
+    this.onSet('salt', cb);
+  }
+
+  public setPassphrase(passphrase: string): Q.Promise<{}> {
     let deferred = Q.defer();
     // verify the salt hasn't been set yet
-    this.getSaltRef().then(ref => {
-      this.database.ref(ref).once('value', snapshot => {
+    this.getCustomRef('').then(ref => {
+      this.database.ref(ref + '/salt').once('value', snapshot => {
         if (snapshot.val()) {
           deferred.reject('Salt already set');
         } else {
           this.entropyService.generateSalt().then(salt => {
-            this.database.ref(ref).set(salt).then(() => deferred.resolve());
+            let hash = sjcl.hash.sha256.hash(passphrase + salt);
+            let hashPromise = this.database.ref(ref + '/hash').set(hash);
+            let saltPromise = this.database.ref(ref + '/salt').set(salt);
+            Q.all([hashPromise, saltPromise]).then(deferred.resolve);
           });
         }
       });
@@ -83,11 +94,11 @@ export class StorageService {
     return `users/${userId}/entries/${dateRef}`;
   }
 
-  private getSaltRef(): Q.Promise<string> {
+  private getCustomRef(ref: string): Q.Promise<string> {
     let deferred = Q.defer<string>();
     this.authService.authPromise.then(() => {
       let userId = this.authService.getUserId();
-      deferred.resolve(`users/${userId}/salt`);
+      deferred.resolve(`users/${userId}/${ref}`);
     });
     return deferred.promise;
   }
