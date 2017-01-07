@@ -15,18 +15,26 @@ class MenuitemsController {
 
   saveStory() {
     PubSub.publish('story', 'save');
+    this.closeSidePanel();
   }
 
   editStory() {
     PubSub.publish('story', 'edit');
+    this.closeSidePanel();
   }
 
   deleteStory() {
     PubSub.publish('story', 'delete');
+    this.closeSidePanel();
   }
 
   discardStory() {
     PubSub.publish('story', 'discard');
+    this.closeSidePanel();
+  }
+
+  closeSidePanel() {
+    $('#navPanel').removeClass('visible');
   }
 }
 
