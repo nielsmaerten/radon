@@ -6,7 +6,7 @@ class StoryReadController {
   private moment: moment.MomentStatic = require('moment');
   private story: PlainStory;
   private date: Date;
-  private noStoryAvailable: boolean = true;
+  private noStoryAvailable: boolean;
 
   /** @ngInject */
   constructor($state: ng.ui.IStateService, StorageService: StorageService, EncryptionService: EncryptionService) {
@@ -17,8 +17,8 @@ class StoryReadController {
       StorageService.fetchStory(this.date)
         .then(encryptedStory => {
           this.story = EncryptionService.decryptStory(encryptedStory);
-        })
-        .catch(() => {
+        }, error => {
+          alert('WHAT THE FUCK IS THIS SHIT. WHY CAN\'T I SET A PROPERTY FROM HERE?!');
           this.noStoryAvailable = true;
         });
     }
