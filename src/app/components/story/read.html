@@ -1,0 +1,19 @@
+<section id="three" class="wrapper">
+  <div class="inner">
+    <header class="align-center">
+      <h2>{{$ctrl.date | date:'fullDate'}}</h2>
+    </header>
+    <div class="row center-xs">
+      <div class="col-lg-8 col-md-9 col-sm-12">
+        <p class="start-xs" ng-if="$ctrl.story">
+          {{$ctrl.story.Content}}
+        </p>
+        <div ng-if="$ctrl.noStoryAvailable === true">
+          <p emoji>You don't have an entry for this date. Why not add something now? :writing_hand:</p>
+          <a href class="button">Start new entry</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
