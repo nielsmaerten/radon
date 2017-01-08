@@ -24,7 +24,7 @@ module.exports = {
       template: conf.path.src('index.html')
     }),
     new webpack.optimize.UglifyJsPlugin({
-      compress: {unused: true, dead_code: true, warnings: false} // eslint-disable-line camelcase
+      compress: {unused: true, dead_code: true, warnings: false, drop_console: true} // eslint-disable-line camelcase
     }),
     new ExtractTextPlugin('index-[contenthash].css'),
     new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
