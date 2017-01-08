@@ -46,12 +46,11 @@ describe('encryption service', () => {
 
   it('should reject incorrect encryption key', done => angular.mock.inject((EncryptionService: EncryptionService) => {
     expect(EncryptionService.isReady()).toBe(false);
-    try {
-      EncryptionService.loadEncryptionKey('incorrect');
-    } catch (e) {
+
+    EncryptionService.loadEncryptionKey('incorrect').catch(e => {
       expect(e).toBeDefined();
       done();
-    }
+    });
   }));
 
   it('should encrypt a story', angular.mock.inject((EncryptionService: EncryptionService) => {
