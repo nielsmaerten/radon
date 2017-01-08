@@ -12,11 +12,4 @@ describe('story read component', () => {
       .component('appStoryRead', storyRead);
     angular.mock.module('appStoryRead');
   });
-
-  xit('should render a date', angular.mock.inject(($rootScope: ng.IRootScopeService, $compile: ng.ICompileService) => {
-    const element = $($compile('<app-story-read></app-story-read>')($rootScope));
-    $rootScope.$digest();
-    let selector = '#date';
-    expect(element.find(selector).length).toBe(1);
-  }));
 });
