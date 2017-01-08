@@ -3,6 +3,7 @@ import { StorageService } from '../../services/storage';
 import { EncryptionService } from '../../services/encryption';
 import * as moment from 'moment';
 import * as PubSub from 'pubsub-js';
+declare var emojione: any;
 
 class StoryReadController {
   private moment: moment.MomentStatic = require('moment');
@@ -23,6 +24,7 @@ class StoryReadController {
       StorageService.fetchStory(this.date)
         .then(encryptedStory => {
           this.story = EncryptionService.decryptStory(encryptedStory);
+          this.story.Contents = emojione.toImage(this.story.Contents);
           $scope.$apply();
         }, error => {
           this.noStoryAvailable = true;

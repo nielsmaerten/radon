@@ -18,8 +18,7 @@
 
     <div class="row center-xs">
       <div class="col-lg-8 col-md-9 col-sm-12">
-        <p class="start-xs" ng-if="$ctrl.story">
-          {{$ctrl.story.Contents}}
+        <p class="start-xs" ng-if="$ctrl.story" ng-bind-html="$ctrl.story.Contents">
         </p>
         <div ng-if="$ctrl.noStoryAvailable">
           <p emoji>You don't have an entry for this date. Why not add something now? :writing_hand:</p>

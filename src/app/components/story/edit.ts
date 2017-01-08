@@ -3,6 +3,7 @@ import { StorageService } from '../../services/storage';
 import { EncryptionService } from '../../services/encryption';
 import * as moment from 'moment';
 import * as PubSub from 'pubsub-js';
+declare var emojione: any;
 
 class StoryEditController {
   private moment: moment.MomentStatic = require('moment');
@@ -37,6 +38,7 @@ class StoryEditController {
   }
 
   saveStory() {
+    this.story.Contents = emojione.toShort(this.story.Contents);
     let encryptedStory = this.EncryptionService.encryptStory(this.story);
     this.StorageService.saveStory(encryptedStory);
     this.$state.go('app.storyRead', { storyDate: moment(this.date).format('YYYYMMDD') });
