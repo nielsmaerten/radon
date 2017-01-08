@@ -18,7 +18,6 @@
     "browser-sync": "^2.9.11",
     "browser-sync-spa": "^1.0.3",
     "css-loader": "^0.23.1",
-    "css-spaces": "^0.3.5",
     "del": "^2.0.2",
     "es6-shim": "^0.35.0",
     "eslint": "^3.2.2",
@@ -77,13 +76,14 @@
     "webpack": "2.1.0-beta.20"
   },
   "scripts": {
+    "gulp": "node node_modules/gulp/bin/gulp.js",
     "postinstall": "typings install",
     "start": "gulp serve",
     "build": "gulp",
     "serve": "gulp serve",
     "serve:dist": "gulp serve:dist",
-    "test": "gulp test",
-    "test:auto": "gulp test:auto"
+    "test:once": "gulp test",
+    "test": "gulp test:auto"
   },
   "eslintConfig": {
     "globals": {

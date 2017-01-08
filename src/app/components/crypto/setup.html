@@ -11,22 +11,22 @@
           <input type="password" autofocus name="passphrase" ng-model="$ctrl.passphrase" placeholder="Type your passphrase"
           />
         </div>
-        <div class="col-sm-10 col-xs-12 mt-xs">
+        <div class="col-sm-10 col-xs-12 mt3">
           <input type="password" name="passphraseConfirm" ng-model="$ctrl.passphraseConfirm" placeholder="Once more, please" />
         </div>
-        <div class="col-sm-10 col-xs-12 mt-xs end-sm">
+        <div class="col-sm-10 col-xs-12 mt3 end-sm">
           <!--<input type="reset" value="Start over" />-->
           <input ng-disabled="!$ctrl.passphrase || !$ctrl.passphraseConfirm || $ctrl.passphrase !== $ctrl.passphraseConfirm" type="submit"
-            value="Set passphrase" class="ml-xxs" />
+            value="Set passphrase" />
         </div>
-        <div class="col-sm-10 col-xs-12 mt-xs end-xs">
+        <div class="col-sm-10 col-xs-12 mt2 end-xs">
           <span ng-show="$ctrl.passphrase && $ctrl.passphraseConfirm && $ctrl.passphrase !== $ctrl.passphraseConfirm" emoji>
                 :thinking: These passphrases do not match?</span><br/>
           <span ng-show="$ctrl.passphrase && $ctrl.passphraseConfirm && $ctrl.passphrase.length < 20" emoji>
                 :open_mouth: I'd use a passphrase of at least 20 characters!
               </span>
         </div>
-        <div class="col-sm-10 col-xs-12 mt-s start-xs">
+        <div class="col-sm-10 col-xs-12 mt2 start-xs">
           <a href="">How your entries are protected</a><br/>
           <a href="">Tips on choosing a good passphrase</a>
         </div>
