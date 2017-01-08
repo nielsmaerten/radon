@@ -7,6 +7,8 @@ import 'angular-ui-router';
 import 'angular-material';
 import 'angular-sanitize';
 import 'angular-material-calendar/dist/angular-material-calendar.js';
+import 'trix/dist/trix.js';
+import 'angular-trix/dist/angular-trix.js';
 import routesConfig from './routes';
 
 import { main } from './app/main';
@@ -33,7 +35,7 @@ import { emojiFilter, emojiDirective } from './app/filters/emoji';
 import './index.scss';
 
 angular
-  .module('app', ['ui.router', 'ngMaterial', 'materialCalendar'])
+  .module('app', ['ui.router', 'ngMaterial', 'materialCalendar', 'angularTrix'])
   .config(routesConfig)
   .config(($mdThemingProvider) => {
     $mdThemingProvider

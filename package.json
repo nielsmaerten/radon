@@ -8,6 +8,7 @@
   "devDependencies": {
     "angular-material-calendar": "^0.2.14",
     "angular-mocks": "^1.5.0-beta.2",
+    "angular-trix": "^1.0.2",
     "autoprefixer": "^6.2.2",
     "babel-core": "^6.18.2",
     "babel-eslint": "^6.0.2",
