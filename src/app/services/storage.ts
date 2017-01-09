@@ -13,6 +13,7 @@ export class StorageService {
   private entropyService: EntropyService;
   private authService: AuthService;
   private stories: any;
+  private dates: Date[] = [];
 
 
   /** @ngInject */
@@ -21,6 +22,7 @@ export class StorageService {
     this.authService = AuthService;
     this.entropyService = EntropyService;
     this.stories = {};
+    this.onSet('dates', datesObject => this.updateDateArray(datesObject));
   }
 
   public onSet(shortReference: string, callback: Function) {
@@ -59,6 +61,9 @@ export class StorageService {
 
   public saveStory(story: EncryptedStory) {
     this.database.ref(this.getStoryRef(story.Date)).set(story);
+    this.getCustomRef(`dates/${this.getDateRef(story.Date)}`).then(ref => {
+      this.database.ref(ref).set(true);
+    });
     this.stories[this.getDateRef(story.Date)] = story;
   }
 
@@ -83,7 +88,19 @@ export class StorageService {
 
   public deleteStory(date: Date): firebase.Promise<any> {
     this.stories[this.getDateRef(date)] = undefined;
+    this.getCustomRef(`dates/${this.getDateRef(date)}`).then(ref => {
+      this.database.ref(ref).remove();
+    });
     return this.database.ref(this.getStoryRef(date)).remove();
+  }
+
+  private updateDateArray(datesObject: any) {
+    this.dates.splice(0);
+    for (let k in datesObject) {
+      if (datesObject.hasOwnProperty(k)) {
+        this.dates.push(moment(k, 'YYYYMMDD').toDate());
+      }
+    }
   }
 
   private tryGetStoryFromCache(date: Date) {
