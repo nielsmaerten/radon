@@ -4,7 +4,7 @@
     box-shadow: inset 0 0 0 2px #555;
   }
 </style>
-<calendar-md week-starts-on="1" ng-model="$ctrl.selectedDate" on-day-click="$ctrl.clickedDay"></calendar-md>
+<calendar-md week-starts-on="1" ng-model="$ctrl.selectedDates" on-day-click="$ctrl.clickedDay" day-content="$ctrl.setDayContent"></calendar-md>
 <div class="inner mt2">
   <p>
     <span ng-repeat="date in $ctrl.StorageService.dates | orderBy"><a href ng-click="$ctrl.clickedDay(date)" >{{date | date:'fullDate'}}</a><br/></span>

@@ -7,7 +7,7 @@ class CalendarController {
   private StorageService: StorageService;
   private $state: ng.ui.IStateService;
 
-  private selectedDate: Date;
+  private selectedDates: Date[];
 
   /** @ngInject */
   constructor(EncryptionService: EncryptionService, $state: ng.ui.IStateService, StorageService: StorageService) {
@@ -20,9 +20,7 @@ class CalendarController {
       $state.go('app.home');
     }
 
-    // set currentdate to midnight, so today gets selected in the calendar
-    this.selectedDate = new Date();
-    this.selectedDate.setHours(0, 0, 0, 0);
+    this.selectedDates = StorageService.dates;
   }
 
   public clickedDay = (date: Date) => {
@@ -30,6 +28,13 @@ class CalendarController {
     this.$state.go('app.storyRead', {
       storyDate: storyDate
     });
+  }
+
+  public setDayContent = (d1: Date) => {
+    return undefined;
+    /*let today = new Date();
+    today.setHours(0, 0, 0, 0);
+    return today.getTime() === d1.getTime() ? '#' : undefined;*/
   }
 }
 

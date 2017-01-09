@@ -9,11 +9,11 @@ import * as Q from 'q';
 import * as sjcl from 'sjcl';
 
 export class StorageService {
+  public dates: Date[] = [];
   private database: firebase.database.Database;
   private entropyService: EntropyService;
   private authService: AuthService;
   private stories: any;
-  private dates: Date[] = [];
 
 
   /** @ngInject */
