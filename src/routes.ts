@@ -15,6 +15,10 @@ function routesConfig($stateProvider: angular.ui.IStateProvider, $urlRouterProvi
       component: 'appBanner',
       url: '/'
     })
+    .state('app.introduction', {
+      component: 'appIntroduction',
+      url: '/intro'
+    })
     .state('app.cryptoSetup', {
       component: 'appCryptoSetup',
       url: '/crypto/setup'

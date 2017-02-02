@@ -2,7 +2,7 @@
 
 [Radon](https://radon.niels.me) is an online journaling app, focused on security and simplicity.  
 Using just a browser, you can create daily entries to follow up on your projects, life, ideas, ... pretty much anything you want.  
-And because Radon uses zero-knowledge end-to-end encryption, you can speak freely 😌
+And because Radon uses zero-knowledge end-to-end encryption, you can speak freely :relaxed:
 
 ## Why another journaling app?
 I used to be a big fan of [OhLife](www.ohlife.com) (RIP).  
