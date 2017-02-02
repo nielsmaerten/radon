@@ -1,7 +1,7 @@
 {
   "name": "qiip.radon",
   "license": "MIT",
-  "version": "0.3.0-0",
+  "version": "1.0.0-BETA",
   "dependencies": {
     "angular": "^1.5.0",
     "angular-ui-router": "1.0.0-beta.1"
