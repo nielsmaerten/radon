@@ -102,7 +102,7 @@
   "description": "[Radon](https://radon.niels.me) is an online journaling app, focused on security and simplicity.  \r Using just a browser, you can create daily entries to follow up on your projects, life, ideas, ... pretty much anything you want.  \r And because Radon uses zero-knowledge end-to-end encryption, you can speak freely 😌",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/nielsmaerten/radon.git"
+    "url": "https://github.com/nielsmaerten/radon"
   },
   "author": "Niels Maerten",
   "homepage": "https://radon.niels.me"
