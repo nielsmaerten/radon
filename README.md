@@ -1,19 +1,17 @@
 # Radon
 
-[Radon](https://radon.niels.me) is an online journaling app, focused on security, simplicity, and privacy.  
-You can create daily entries to follow up on your projects, life, ideas, ... pretty much anything you want.  
-And because Radon uses zero-knowledge end-to-end encryption, you can speak freely.
+[Radon](https://radon.niels.me) is an online journaling app, focused on security and simplicity.  
+Using just a browser, you can create daily entries to follow up on your projects, life, ideas, ... pretty much anything you want.  
+And because Radon uses zero-knowledge end-to-end encryption, you can speak freely 😌
 
-## Another journaling app?
+## Why another journaling app?
 I used to be a big fan of [OhLife](www.ohlife.com) (RIP).  
 Every day, I'd write a quick summary of the stuff a got done, and what I was planning on doing next.  
-One thing made me feel uneasy though: what if they ever got breached?  
+One thing made me feel uneasy though: what if the site ever got breached?  
 
 So I decided to try and create my own, zero-knowledge journal.  
 That way, even if the database ever got hacked,  
-I could sleep easy knowing it would only contain unreadable gibberish.
-
-Don't believe me? Look [here](https://gist.github.com/nielsmaerten/48a64b1a8a7f603f585c7770e41654e9) for some of my actual entries in Radon.
+I could sleep easy knowing it would only contain [unreadable gibberish](https://gist.github.com/nielsmaerten/48a64b1a8a7f603f585c7770e41654e9).
 
 ## Technical details
 (For us geeks :)
