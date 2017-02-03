@@ -33,6 +33,9 @@ npm start
 
 # Running tests in a browser
 npm run gulp test:auto
+
+# Building the app
+npm run gulp build
 ```
 
 ## Contributing
