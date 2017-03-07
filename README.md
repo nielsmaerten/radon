@@ -1,4 +1,4 @@
-# Radon
+# Radon - https://radon.niels.me
 
 [Radon](https://radon.niels.me) is an online journaling app, focused on security and simplicity.  
 Using just a browser, you can create daily entries to follow up on your projects, life, ideas, ... pretty much anything you want.  
