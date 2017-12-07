@@ -43,5 +43,9 @@ function routesConfig($stateProvider: angular.ui.IStateProvider, $urlRouterProvi
       component: 'appCalendar',
       url: '/calendar'
     })
+    .state('app.storyList', {
+      component: 'appStoryList',
+      url: '/storylist'
+    })
     ;
 }
