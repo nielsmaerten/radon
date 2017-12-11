@@ -36,6 +36,11 @@ class MenuitemsController {
   closeSidePanel() {
     $('#navPanel').removeClass('visible');
   }
+
+  go(to: string){
+    this.$state.go(to);
+    this.closeSidePanel();
+  }
 }
 
 export const menuitems: angular.IComponentOptions = {
