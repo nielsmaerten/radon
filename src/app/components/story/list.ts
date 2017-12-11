@@ -3,7 +3,6 @@ import { StorageService } from '../../services/storage';
 declare var emojione: any;
 
 class StoryListController {
-  private moment = require('moment');
   private EncryptionService: EncryptionService;
   private StorageService: StorageService;
   private $state: ng.ui.IStateService;
@@ -27,30 +26,30 @@ class StoryListController {
       this.StorageService.dates.forEach(date => {
         this.stories.push({
           date: date
-        })
+        });
       });
       this.stories = this.stories.reverse();
     }
   }
 
-  public loadStory(story){
+  public loadStory(story: any) {
     story.show = !story.show;
-    if (!story.loaded){
+    if (!story.loaded) {
       this.StorageService.fetchStory(story.date).then(e => {
         story.Contents = this.EncryptionService.decryptStory(e).Contents;
         story.Contents = emojione.toImage(story.Contents);
         story.loaded = true;
         this.$scope.$apply();
-      })
+      });
     }
   }
 
-  public expandAll(){
+  public expandAll() {
     this.hideExpandAll = true;
     this.stories.forEach(story => {
       this.loadStory(story);
       story.show = true;
-    })
+    });
   }
 }
 

@@ -2,7 +2,6 @@
 
 import * as angular from 'angular';
 import 'angular-mocks';
-import * as $ from 'jquery';
 import { storyRead } from './read';
 
 describe('story read component', () => {
