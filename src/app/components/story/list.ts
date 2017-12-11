@@ -9,6 +9,7 @@ class StoryListController {
   private $state: ng.ui.IStateService;
   private $scope: ng.IScope;
   private stories: any[];
+  private hideExpandAll: boolean;
 
   /** @ngInject */
   constructor(EncryptionService: EncryptionService, $state: ng.ui.IStateService, StorageService: StorageService, $scope: ng.IScope) {
@@ -17,6 +18,7 @@ class StoryListController {
     this.$state = $state;
     this.$scope = $scope;
     this.stories = [];
+    this.hideExpandAll = false;
 
     // i should not be here if the encryptionservice isn't ready
     if (!EncryptionService.isReady()) {
@@ -41,6 +43,14 @@ class StoryListController {
         this.$scope.$apply();
       })
     }
+  }
+
+  public expandAll(){
+    this.hideExpandAll = true;
+    this.stories.forEach(story => {
+      this.loadStory(story);
+      story.show = true;
+    })
   }
 }
 
