@@ -8,9 +8,6 @@
     column-gap: 1em;
   }
 </style>
-<div class="align-center">
-  <a href ui-sref="app.storyList">Switch to list view</a>
-</div>
 <calendar-md week-starts-on="1" ng-model="$ctrl.selectedDates" on-day-click="$ctrl.clickedDay" day-content="$ctrl.setDayContent"></calendar-md>
 <div class="inner mt2 dates-list align-center">
   <p ng-repeat="date in $ctrl.StorageService.dates | orderBy">
