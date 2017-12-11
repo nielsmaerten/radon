@@ -1,23 +1,45 @@
 import { EncryptionService } from '../../services/encryption';
 import { StorageService } from '../../services/storage';
+declare var emojione: any;
 
 class StoryListController {
   private moment = require('moment');
   private EncryptionService: EncryptionService;
   private StorageService: StorageService;
   private $state: ng.ui.IStateService;
+  private $scope: ng.IScope;
+  private stories: any[];
 
   /** @ngInject */
-  constructor(EncryptionService: EncryptionService, $state: ng.ui.IStateService, StorageService: StorageService) {
+  constructor(EncryptionService: EncryptionService, $state: ng.ui.IStateService, StorageService: StorageService, $scope: ng.IScope) {
     this.EncryptionService = EncryptionService;
     this.StorageService = StorageService;
     this.$state = $state;
+    this.$scope = $scope;
+    this.stories = [];
 
     // i should not be here if the encryptionservice isn't ready
     if (!EncryptionService.isReady()) {
       $state.go('app.home');
+    } else {
+      this.StorageService.dates.forEach(date => {
+        this.stories.push({
+          date: date
+        })
+      })
     }
+  }
 
+  public loadStory(story){
+    story.show = !story.show;
+    if (!story.loaded){
+      this.StorageService.fetchStory(story.date).then(e => {
+        story.Contents = this.EncryptionService.decryptStory(e).Contents;
+        story.Contents = emojione.toImage(story.Contents);
+        story.loaded = true;
+        this.$scope.$apply();
+      })
+    }
   }
 }
 

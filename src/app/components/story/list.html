@@ -1,1 +1,22 @@
-<p>Hello route, storyList!</p>
+<section id="three" class="wrapper">
+    <div class="inner" ng-repeat="story in ::$ctrl.stories track by $index">
+      <header class="align-center">
+        <div class="row">
+          <div class="col-xs-12">
+              <a href="" ng-click="$ctrl.loadStory(story)">
+                  <h2>{{::story.date | date:'fullDate'}}</h2>
+              </a>
+            
+          </div>
+        </div>
+      </header>
+  
+      <div class="row center-xs" ng-if="story.loaded" ng-show="story.show">
+        <div class="col-lg-8 col-md-9 col-sm-12">
+          <p class="start-xs" ng-bind-html="::story.Contents">
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+  
