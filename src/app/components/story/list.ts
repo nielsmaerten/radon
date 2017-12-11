@@ -26,7 +26,8 @@ class StoryListController {
         this.stories.push({
           date: date
         })
-      })
+      });
+      this.stories = this.stories.reverse();
     }
   }
 
