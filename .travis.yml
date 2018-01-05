@@ -1,0 +1,10 @@
+language: node_js
+sudo: false
+install:
+  - npm install -g gulp-cli
+  - yarn
+script:
+  - gulp
+deploy:
+  provider: firebase
+  token: $FIREBASE_TOKEN
