@@ -26,16 +26,20 @@ Clone the repository, then run:
 
 ```sh
 # Installing dependencies
-npm install
+yarn
+npm install -g gulp-cli
 
 # Running the app locally
-npm start
+npm start (or: gulp serve)
 
 # Running tests in a browser
 npm run gulp test:auto
 
+# Live in browser
+gulp serve[:dist]
+
 # Building the app
-npm run gulp build
+npm run gulp build (or just: gulp)
 ```
 
 ## Contributing
