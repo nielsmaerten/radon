@@ -6,6 +6,7 @@ import * as PubSub from 'pubsub-js';
 declare var emojione: any;
 
 class StoryReadController {
+  private marked = require('marked');
   private moment: moment.MomentStatic = require('moment');
   private story: PlainStory;
   private date: Date;
@@ -24,6 +25,7 @@ class StoryReadController {
       StorageService.fetchStory(this.date)
         .then(encryptedStory => {
           this.story = EncryptionService.decryptStory(encryptedStory);
+          this.story.Contents = this.marked(this.story.Contents)
           this.story.Contents = emojione.toImage(this.story.Contents);
           $scope.$apply();
         }, error => {
