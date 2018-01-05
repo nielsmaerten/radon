@@ -3,6 +3,7 @@ import { StorageService } from '../../services/storage';
 declare var emojione: any;
 
 class StoryListController {
+  private marked = require('marked');
   private EncryptionService: EncryptionService;
   private StorageService: StorageService;
   private $state: ng.ui.IStateService;
@@ -37,6 +38,7 @@ class StoryListController {
     if (!story.loaded) {
       this.StorageService.fetchStory(story.date).then(e => {
         story.Contents = this.EncryptionService.decryptStory(e).Contents;
+        story.Contents = this.marked(story.Contents)
         story.Contents = emojione.toImage(story.Contents);
         story.loaded = true;
         this.$scope.$apply();
